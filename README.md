@@ -1,3 +1,9 @@
+
+## Repositorio
+
+El código fuente del proyecto se encuentra disponible en:
+
+https://github.com/dancoyd/matchblog
 # MatchBlog
 
 MatchBlog es una aplicación web desarrollada con Django como proyecto final del curso de Python.
@@ -42,4 +48,4 @@ Para ejecutar este proyecto se necesita tener instalado:
 1. Clonar el repositorio:
 
 ```bash
-git clone URL_DEL_REPOSITORIO
+git clone https://github.com/dancoyd/matchblog.git
