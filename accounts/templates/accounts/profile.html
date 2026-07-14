@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+
+{% block title %}Mi perfil | MatchBlog{% endblock %}
+
+{% block content %}
+<section class="profile-header">
+    <div class="profile-avatar">
+        {% if profile_obj.avatar %}
+            <img src="{{ profile_obj.avatar.url }}" alt="Foto de perfil">
+        {% else %}
+            <div class="avatar-placeholder">
+                {{ user.username|first|upper }}
+            </div>
+        {% endif %}
+    </div>
+
+    <div>
+        <h1>{{ user.username }}</h1>
+
+        {% if user.first_name or user.last_name %}
+            <p>{{ user.first_name }} {{ user.last_name }}</p>
+        {% endif %}
+
+        {% if profile_obj.bio %}
+            <p>{{ profile_obj.bio }}</p>
+        {% else %}
+            <p>Todavía no agregaste una biografía.</p>
+        {% endif %}
+    </div>
+</section>
+
+<section class="form-card">
+    <h2>Editar perfil</h2>
+    <p>Actualizá tus datos personales y tu información pública.</p>
+
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        <h3>Datos de usuario</h3>
+
+        {% for field in user_form %}
+            <div class="form-group">
+                <label>{{ field.label }}</label>
+                {{ field }}
+
+                {% if field.errors %}
+                    <div class="field-error">
+                        {{ field.errors }}
+                    </div>
+                {% endif %}
+            </div>
+        {% endfor %}
+
+        <h3>Datos del perfil</h3>
+
+        {% for field in profile_form %}
+            <div class="form-group">
+                <label>{{ field.label }}</label>
+                {{ field }}
+
+                {% if field.errors %}
+                    <div class="field-error">
+                        {{ field.errors }}
+                    </div>
+                {% endif %}
+            </div>
+        {% endfor %}
+
+        <button type="submit" class="btn">Guardar cambios</button>
+    </form>
+</section>
+{% endblock %}

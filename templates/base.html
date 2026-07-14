@@ -1,0 +1,58 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}MatchBlog{% endblock %}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+
+<header class="navbar">
+    <div class="container nav-content">
+        <a href="{% url 'home' %}" class="logo">MatchBlog</a>
+
+        <nav>
+            <a href="{% url 'home' %}">Inicio</a>
+            <a href="{% url 'post_list' %}">Publicaciones</a>
+            <a href="{% url 'about' %}">Acerca de</a>
+
+            {% if user.is_authenticated %}
+                <a href="{% url 'post_create' %}">Crear post</a>
+                <a href="{% url 'profile' %}">Mi perfil</a>
+
+                <form action="{% url 'logout' %}" method="post" class="logout-form">
+                    {% csrf_token %}
+                    <button type="submit">Cerrar sesión</button>
+                </form>
+            {% else %}
+                <a href="{% url 'login' %}">Iniciar sesión</a>
+                <a href="{% url 'register' %}">Registrarse</a>
+            {% endif %}
+        </nav>
+    </div>
+</header>
+
+{% if messages %}
+    <div class="container messages">
+        {% for message in messages %}
+            <div class="message {{ message.tags }}">
+                {{ message }}
+            </div>
+        {% endfor %}
+    </div>
+{% endif %}
+
+<main class="container main-content">
+    {% block content %}
+    {% endblock %}
+</main>
+
+<footer class="footer">
+    <p>Proyecto Final Python - Django | MatchBlog</p>
+</footer>
+
+</body>
+</html>

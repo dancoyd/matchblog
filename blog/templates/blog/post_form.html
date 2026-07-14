@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ title }} | MatchBlog{% endblock %}
+
+{% block content %}
+<section class="form-card">
+    <h1>{{ title }}</h1>
+    <p>Completá los datos de la publicación.</p>
+
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        {% for field in form %}
+            <div class="form-group">
+                <label>{{ field.label }}</label>
+                {{ field }}
+
+                {% if field.errors %}
+                    <div class="field-error">
+                        {{ field.errors }}
+                    </div>
+                {% endif %}
+            </div>
+        {% endfor %}
+
+        <div class="actions">
+            <button type="submit" class="btn">{{ button_text }}</button>
+            <a href="{% url 'post_list' %}" class="btn secondary">Cancelar</a>
+        </div>
+    </form>
+</section>
+{% endblock %}

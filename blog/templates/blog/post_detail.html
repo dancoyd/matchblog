@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ post.title }} | MatchBlog{% endblock %}
+
+{% block content %}
+<article class="detail-card">
+    {% if post.image %}
+        <img src="{{ post.image.url }}" alt="{{ post.title }}" class="detail-image">
+    {% endif %}
+
+    <div class="detail-content">
+        <span class="category">{{ post.category|default:"Sin categoría" }}</span>
+
+        <h1>{{ post.title }}</h1>
+
+        {% if post.subtitle %}
+            <h2>{{ post.subtitle }}</h2>
+        {% endif %}
+
+        <div class="post-meta">
+            <span>Autor: {{ post.author.username }}</span>
+            <span>Publicado: {{ post.created_at|date:"d/m/Y H:i" }}</span>
+        </div>
+
+        <p class="post-body">{{ post.content|linebreaks }}</p>
+
+        {% if user == post.author or user.is_staff %}
+            <div class="actions">
+                <a href="{% url 'post_update' post.pk %}" class="btn">Editar</a>
+                <a href="{% url 'post_delete' post.pk %}" class="btn danger">Eliminar</a>
+            </div>
+        {% endif %}
+    </div>
+</article>
+{% endblock %}

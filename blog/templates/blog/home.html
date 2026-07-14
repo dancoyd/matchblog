@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+
+{% block title %}Inicio | MatchBlog{% endblock %}
+
+{% block content %}
+<section class="hero">
+    <h1>Bienvenido a MatchBlog</h1>
+    <p>
+        Una aplicación web desarrollada con Django para compartir publicaciones deportivas,
+        crear contenido y gestionar perfiles de usuario.
+    </p>
+
+    <div class="actions">
+        <a href="{% url 'post_list' %}" class="btn">Ver publicaciones</a>
+
+        {% if user.is_authenticated %}
+            <a href="{% url 'post_create' %}" class="btn secondary">Crear publicación</a>
+        {% else %}
+            <a href="{% url 'register' %}" class="btn secondary">Crear cuenta</a>
+        {% endif %}
+    </div>
+</section>
+
+<section class="info-grid">
+    <div class="info-card">
+        <h3>Publicaciones</h3>
+        <p>Los usuarios pueden crear, ver, editar y eliminar publicaciones propias.</p>
+    </div>
+
+    <div class="info-card">
+        <h3>Usuarios</h3>
+        <p>La aplicación incluye registro, inicio de sesión y perfiles personalizados.</p>
+    </div>
+
+    <div class="info-card">
+        <h3>Panel Admin</h3>
+        <p>El administrador puede gestionar usuarios, publicaciones y categorías.</p>
+    </div>
+</section>
+
+<section class="section-header">
+    <h2>Últimas publicaciones</h2>
+    <p>Contenido reciente compartido por los usuarios.</p>
+</section>
+
+<div class="post-grid">
+    {% for post in latest_posts %}
+        <article class="post-card">
+            {% if post.image %}
+                <img src="{{ post.image.url }}" alt="{{ post.title }}">
+            {% endif %}
+
+            <div class="post-card-content">
+                <span class="category">{{ post.category|default:"Sin categoría" }}</span>
+                <h3>{{ post.title }}</h3>
+                <p>{{ post.subtitle|default:post.content|truncatechars:120 }}</p>
+                <a href="{% url 'post_detail' post.pk %}" class="text-link">Leer más</a>
+            </div>
+        </article>
+    {% empty %}
+        <div class="empty-state">
+            <p>Todavía no hay publicaciones cargadas.</p>
+            <p>Podés crear contenido desde el panel admin o desde el formulario de publicaciones.</p>
+        </div>
+    {% endfor %}
+</div>
+{% endblock %}

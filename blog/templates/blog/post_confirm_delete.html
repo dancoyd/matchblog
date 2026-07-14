@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block title %}Eliminar publicación | MatchBlog{% endblock %}
+
+{% block content %}
+<section class="form-card">
+    <h1>Eliminar publicación</h1>
+
+    <p>
+        ¿Estás seguro de que querés eliminar la publicación
+        <strong>"{{ post.title }}"</strong>?
+    </p>
+
+    <form method="post">
+        {% csrf_token %}
+
+        <div class="actions">
+            <button type="submit" class="btn danger">Sí, eliminar</button>
+            <a href="{% url 'post_detail' post.pk %}" class="btn secondary">Cancelar</a>
+        </div>
+    </form>
+</section>
+{% endblock %}

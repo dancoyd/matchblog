@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+
+{% block title %}Registrarse | MatchBlog{% endblock %}
+
+{% block content %}
+<section class="form-card auth-card">
+    <h1>Crear cuenta</h1>
+    <p>Registrate para crear publicaciones y gestionar tu perfil.</p>
+
+    <form method="post">
+        {% csrf_token %}
+
+        {% for field in form %}
+            <div class="form-group">
+                <label>{{ field.label }}</label>
+                {{ field }}
+
+                {% if field.errors %}
+                    <div class="field-error">
+                        {{ field.errors }}
+                    </div>
+                {% endif %}
+            </div>
+        {% endfor %}
+
+        <button type="submit" class="btn">Registrarme</button>
+    </form>
+
+    <p class="auth-link">
+        ¿Ya tenés cuenta?
+        <a href="{% url 'login' %}">Iniciá sesión</a>
+    </p>
+</section>
+{% endblock %}
