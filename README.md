@@ -10,6 +10,12 @@ MatchBlog es una aplicación web desarrollada con Django como proyecto final del
 
 El objetivo del proyecto es permitir que usuarios registrados puedan crear, visualizar, editar y eliminar publicaciones deportivas. Además, la aplicación incluye gestión de perfiles de usuario, autenticación, categorías, formularios con validación y panel administrativo.
 
+## Repositorio
+
+El código fuente del proyecto se encuentra disponible en:
+
+https://github.com/dancoyd/matchblog
+
 ## Funcionalidades principales
 
 - Página de inicio con presentación del proyecto.
